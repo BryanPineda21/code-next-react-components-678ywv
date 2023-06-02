@@ -7,12 +7,21 @@ export const ParentToChild = () => {
   // TODO: Update this code so that the fooified and barified versions of
   // the message are rendered when the input is changed.
 
+  const onChange = (event)=>{
+    const nextMsg = event.target.value;
+    setMsg(nextMsg);
+  };
+
+
+
+
+
   return (
     <>
       <h2>ParentToChild</h2>
 
       <div>
-        <input id="msg" className="form-control" />
+        <input id="msg" className="form-control" onChange ={onChange}/>
       </div>
 
       <div>msg: {msg}</div>
@@ -29,7 +38,7 @@ const Fooifier = (props) => {
   return (
     <>
       <div>fooified: {msgWithFoo}</div>
-      <Barifier />
+      <Barifier msg={msg} />
     </>
   );
 };

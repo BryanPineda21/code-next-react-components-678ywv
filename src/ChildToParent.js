@@ -24,11 +24,17 @@ const NOOP = () => {
 const TodoList = () => {
   const [todos, setTodos] = useState(INITIAL_TODOS);
 
+  const onDone = (idToRemove) =>{
+    const nextTodos = [...todos].filter((todo)=> todo.id !== idToRemove);
+    setTodos(nextTodos);
+  }
+
+
   return (
     <ul className="list-group">
       {todos.map((todo) => (
         <li className="list-group-item">
-          <TodoListItem key={todo.id} todo={todo} />
+          <TodoListItem key={todo.id} todo={todo} onDone={onDone} />
         </li>
       ))}
     </ul>
@@ -39,9 +45,13 @@ const TodoList = () => {
 const TodoListItem = (props) => {
   const todo = props.todo;
 
+  const onClick = () =>{
+    props.onDone(todo.id);
+  }
+
   return (
     <div className="d-flex justify-content-between">
-      {todo.text} <button className="btn btn-primary btn-sm">done</button> 
+      {todo.text} <button className="btn btn-primary btn-sm" onClick={onClick}>done</button> 
     </div>
   );
 };
